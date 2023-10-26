@@ -1,0 +1,78 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Expense {
+    String description;
+    double amount;
+    String category;
+
+    public Expense(String description, double amount, String category) {
+        this.description = description;
+        this.amount = amount;
+        this.category = category;
+    }
+}
+
+public class ExpenseTracker {
+    public static void main(String[] args) {
+        ArrayList<Expense> expenses = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nExpense Tracker Menu:");
+            System.out.println("1. Add Expense");
+            System.out.println("2. View Expenses");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    addExpense(expenses, scanner);
+                    break;
+                case 2:
+                    viewExpenses(expenses);
+                    break;
+                case 3:
+                    System.out.println("Exiting Expense Tracker. Goodbye!");
+                    scanner.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    public static void addExpense(ArrayList<Expense> expenses, Scanner scanner) {
+        System.out.println("\nAdd Expense:");
+        System.out.print("Description: ");
+        String description = scanner.nextLine();
+        System.out.print("Amount: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine(); // Consume the newline character
+        System.out.print("Category: ");
+        String category = scanner.nextLine();
+
+        Expense expense = new Expense(description, amount, category);
+        expenses.add(expense);
+
+        System.out.println("Expense added successfully.");
+    }
+
+    public static void viewExpenses(ArrayList<Expense> expenses) {
+        if (expenses.isEmpty()) {
+            System.out.println("No expenses recorded yet.");
+            return;
+        }
+
+        System.out.println("\nExpense List:");
+        for (Expense expense : expenses) {
+            System.out.println("Description: " + expense.description);
+            System.out.println("Amount: " + expense.amount);
+            System.out.println("Category: " + expense.category);
+            System.out.println("-------------------------");
+        }
+    }
+}
