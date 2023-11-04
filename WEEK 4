@@ -1,0 +1,128 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class TextAdventureGame {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to the Adventure Game!");
+
+        // Start the game by calling the first decision point function
+        decisionPoint1();
+    }
+
+    // Function for Decision Point 1
+    public static void decisionPoint1() {
+        System.out.println("You find yourself at a fork in the road.");
+        System.out.println("          |  |");
+        System.out.println("          |  |");
+        System.out.println("          |  |");
+        System.out.println("         /____\\");
+        System.out.println("The left path seems dark and mysterious, while the right path is bathed in sunlight.");
+        
+        Scanner scanner = new Scanner(System.in);
+        int choice = getUserChoice(scanner, 1, 2);
+        
+        if (choice == 1) {
+            System.out.println("You chose the left path.");
+            decisionPoint2(new Random().nextInt(2) + 1); // Random event for the next decision point
+        } else {
+            System.out.println("You chose the right path.");
+            decisionPoint2(new Random().nextInt(2) + 1); // Random event for the next decision point
+        }
+    }
+
+    // Function for Decision Point 2
+    public static void decisionPoint2(int event) {
+        if (event == 1) {
+            System.out.println("As you continue your journey, you encounter a friendly traveler who offers to accompany you.");
+            System.out.println("   O");
+            System.out.println("  /|\\");
+            System.out.println("  / \\");
+            
+            Scanner scanner = new Scanner(System.in);
+            int choice = getUserChoice(scanner, 1, 2);
+            
+            if (choice == 1) {
+                System.out.println("You accept the company of the traveler.");
+                decisionPoint3();
+            } else {
+                System.out.println("You decide to continue alone.");
+                decisionPoint3();
+            }
+        } else if (event == 2) {
+            System.out.println("A fierce storm begins, and you must find shelter quickly.");
+            System.out.println("    .--.");
+            System.out.println("   /  0  \\");
+            System.out.println("  |  \\_/  |");
+            System.out.println("  |       |");
+            System.out.println("  |       |");
+            System.out.println("   \\     /");
+            System.out.println("    \\ /");
+            
+            Scanner scanner = new Scanner(System.in);
+            int choice = getUserChoice(scanner, 1, 2);
+            
+            if (choice == 1) {
+                System.out.println("You seek refuge in the cave.");
+                decisionPoint3();
+            } else {
+                System.out.println("You build a temporary shelter.");
+                decisionPoint3();
+            }
+        }
+    }
+
+    // Function for Decision Point 3
+    public static void decisionPoint3() {
+        System.out.println("You encounter a fierce creature guarding the path to the artifact. You must make a choice to proceed.");
+        System.out.println("        .--.");
+        System.out.println("       |o_o |");
+        System.out.println("       |:_/ |");
+        System.out.println("      //   \\ \\");
+        System.out.println("     (|     | )");
+        System.out.println("    /'\\_   _/`\\");
+        System.out.println("    \\___)=(___/");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = getUserChoice(scanner, 1, 2);
+
+        if (choice == 1) {
+            System.out.println("You engage in combat with the creature.");
+            conclusion("victory");
+        } else {
+            System.out.println("You attempt to sneak past the creature.");
+            conclusion("escape");
+        }
+    }
+
+    // Function for the Conclusion
+    public static void conclusion(String result) {
+        if (result.equals("victory")) {
+            System.out.println("Congratulations! You've defeated the creature and obtained the artifact.");
+        } else if (result.equals("escape")) {
+            System.out.println("You manage to sneak past the creature and retrieve the artifact without a fight.");
+        } else {
+            System.out.println("Game over! Try again.");
+        }
+    }
+
+    // A helper function to get and validate user input within a specified range.
+    public static int getUserChoice(Scanner scanner, int min, int max) {
+        int choice;
+        while (true) {
+            System.out.print("Enter '1' or '2': ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                if (choice >= min && choice <= max) {
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter a valid choice.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); // Consume the invalid input.
+            }
+        }
+        return choice;
+    }
+}
